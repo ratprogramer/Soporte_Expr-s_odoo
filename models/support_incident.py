@@ -5,28 +5,28 @@ class SupportIncident(models.fields):
     _name = "support.incident"
     _description = "Soporte de incidentes "
 
-    name = fields.char(required=True)
-    description = fields.text()
-    category = fields.selection([
-        ("sercicio_cliente", "Sercicio Cliente"),
+    name = fields.Char(required=True)
+    description = fields.Text()
+    category = fields.Selection([
+        ("servicio_cliente", "Servicio Cliente"),
         ("soporte", "Soporte"),
         ("recursos_humanos", "Recursos Humanos")
     ], required=True, string="Categoria")
 
-    priority = fields.selection([
+    priority = fields.Selection([
         ("baja", "Baja"),
         ("media", "Media"),
         ("alta", "Alta")], required=True, string="Prioridad"
     )
 
-    state = fields.selection([
+    state = fields.Selection([
         ("ingresado", "Ingresado"),
         ("proceso", "Proceso"),
         ("resuelto", "Resuelto")], default="Ingresado", required=True, string="Estado"
     )
 
-    user_id = fields.Many2ne(related="res.parner")
-    deadline = fields.date(required=True, string="Fecha limite")
+    user_id = fields.Many2one(related="res.parner")
+    deadline = fields.Date(required=True, string="Fecha limite")
 
     def send_notification(self):
 
@@ -42,3 +42,13 @@ class SupportIncident(models.fields):
             if 'state' in vals and old_states.get(record.id) != record.state:
                 record._send_notification()
         return result
+
+    def cambiar_estado(self):
+        for record in self:
+            if record.state == "ingresado":
+                record.state = "proceso"
+            elif record.state == "proceso":
+                record.state = "resuelto"
+            elif record.state == "resuelto":
+                record.state = "cerrado"
+        # Puedes agregar más pasos si necesitas
