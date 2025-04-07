@@ -12,7 +12,7 @@ class SupportIncident(models.fields):
         ("soporte", "Soporte"),
         ("recursos_humanos", "Recursos Humanos")
     ], required=True, string="Categoria")
-
+    email = fields.Email(string="Email", required=True)
     priority = fields.Selection([
         ("baja", "Baja"),
         ("media", "Media"),
@@ -40,7 +40,7 @@ class SupportIncident(models.fields):
         # Recorremos los registros y verificamos si el estado cambió
         for record in self:
             if 'state' in vals and old_states.get(record.id) != record.state:
-                record._send_notification()
+                record.send_notification()
         return result
 
     def cambiar_estado(self):
@@ -51,4 +51,3 @@ class SupportIncident(models.fields):
                 record.state = "resuelto"
             elif record.state == "resuelto":
                 record.state = "cerrado"
-        # Puedes agregar más pasos si necesitas
