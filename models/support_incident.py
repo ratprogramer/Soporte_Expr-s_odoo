@@ -1,7 +1,7 @@
 from odoo import fields, models  # type:ignore
 
 
-class SupportIncident(models.fields):
+class SupportIncident(models.Model):
     _name = "support.incident"
     _description = "Soporte de incidentes "
 
@@ -12,7 +12,7 @@ class SupportIncident(models.fields):
         ("soporte", "Soporte"),
         ("recursos_humanos", "Recursos Humanos")
     ], required=True, string="Categoria")
-    email = fields.Email(string="Email", required=True)
+    email = fields.Text(string="Email", required=True)
     priority = fields.Selection([
         ("baja", "Baja"),
         ("media", "Media"),
@@ -25,7 +25,7 @@ class SupportIncident(models.fields):
         ("resuelto", "Resuelto")], default="ingresado", required=True, string="Estado"
     )
 
-    user_id = fields.Many2one(related="res.partner")
+    user_id = fields.Many2one("res.partner")
     deadline = fields.Date(required=True, string="Fecha limite")
 
     def send_notification(self):

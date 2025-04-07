@@ -1,12 +1,11 @@
 {
     "name": "Soporte de incidentes",
-    "dependes": [
+    "depends": [
         "base", "mail"
     ],
     "data": [
+        "views/support_incident_views.xml",
         "data/mail_templates.xml"
-        "views/support_incident.xml",
-        "security/ir.model.access.xml"
-
+        # "security/ir.model.access.xml"
     ]
 }

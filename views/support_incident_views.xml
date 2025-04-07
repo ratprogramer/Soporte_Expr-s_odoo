@@ -1,6 +1,4 @@
-<xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="support_incident_view_form" model="ir.ui.view">
         <field name="name">support.incident.form</field>
         <field name="model">support.incident</field>
@@ -13,7 +11,7 @@
                         <field name="deadline"/>
                     </group>
                     <group>
-                        <field name="category_id"/>
+                        <field name="category"/>
                         <field name="priority"/>
                     </group>
                     <group>
@@ -33,14 +31,13 @@
             </form>
         </field>
     </record>
-
     <record id="support_incident_view_list" model="ir.ui.view">
         <field name="name">support.incident.view.list</field>
         <field name="model">support.incident</field>
         <field name="arch" type="xml">
             <list string="Incidencias">
                 <field name="name"/>
-                <field name="category_id"/>
+                <field name="category"/>
                 <field name="priority"/>
                 <field name="state"/>
                 <field name="user_id"/>
@@ -48,7 +45,6 @@
             </list>
         </field>
     </record>
-
     <record id="support_incident_view_kanban" model="ir.ui.view">
         <field name="name">support.incident.view.kanban</field>
         <field name="model">support.incident</field>
@@ -62,17 +58,19 @@
                     <t t-name="kanban-box"> <!--Es un estilo predefinido para las tarjetas-->
                         <div class="oe_kanban_global_click"> <!--Permite que se pueda clickear la tarjeta-->
                             <div class="o_kanban_record_top">  
-                                <strong t-field="record.name"/> <!--Los datos que van a salir arriba de la carpeta -->
+                                <strong>
+                                    <t t-esc="record.name"/>
+                                </strong> <!--Los datos que van a salir arriba de la carpeta -->
                             </div>
                             <div class="o_kanban_badges">
-                                <span class"badge"
+                                <span class="badge"
                                     t-att-class="'badgge ' +
                                                 (record.state.raw_value == 'Ingresado' and 'badge-primary' or
                                                 (record.state.raw_value == 'En Proceso' and 'badge-warning' or
                                                 'badge-success))">  
                                     <t t-esc="record.state.value"/> <!--Toma el estilo del span, dependiendo de el estado en el que este la tarea-->
                                 </span>
-                                <span class"badge"
+                                <span class="badge"
                                     t-att-class="'badgge ' +
                                                 (record.priority.raw_value == 'Baja' and 'badge-secondary' or
                                                 (record.priority.raw_value == 'Medio' and 'badge-warning' or
@@ -86,17 +84,13 @@
             </kanban>
         </field>
     </record>
-
     <menuitem id="menu_support_incident_root" name="Incidencias" sequence="10"/>
     <menuitem id="menu_support_incident" name="Incidencias" parent="menu_support_incident_root" sequence="10"/>
-
     <record id="action_support_incident" model="ir.actions.act_window">
         <field name="name">Incidencias</field>
         <field name="res_model">support.incident</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="view_id" ref="support_incident_view_kanban"/>
     </record>
-
     <menuitem id="menu_support_incident_action" parent="menu_support_incident" action="action_support_incident"/>
-
 </odoo>
