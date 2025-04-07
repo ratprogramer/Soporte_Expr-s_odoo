@@ -24,6 +24,12 @@
                         <field name="deadline"/>
                     </group>
                 </sheet>
+                <footer>
+                    <button string="Cambiar Estado"
+                            type="object"
+                            name="cambiar_estado"
+                            class="btn-primary"/>
+                </footer>
             </form>
         </field>
     </record>

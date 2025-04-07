@@ -22,10 +22,10 @@ class SupportIncident(models.fields):
     state = fields.Selection([
         ("ingresado", "Ingresado"),
         ("proceso", "Proceso"),
-        ("resuelto", "Resuelto")], default="Ingresado", required=True, string="Estado"
+        ("resuelto", "Resuelto")], default="ingresado", required=True, string="Estado"
     )
 
-    user_id = fields.Many2one(related="res.parner")
+    user_id = fields.Many2one(related="res.partner")
     deadline = fields.Date(required=True, string="Fecha limite")
 
     def send_notification(self):
