@@ -1,5 +1,11 @@
 <odoo>
   <data noupdate="0">
+
+     <record id="model_support_incident" model="ir.model">
+      <field name="name">support.incident</field>
+      <field name="model">support.incident</field>
+    </record>
+      
     <record id="cambio_estado" model="mail.template">
       <field name="name">Notificación de cambio de estado</field>
       <field name="model_id" ref="model_support_incident"/>

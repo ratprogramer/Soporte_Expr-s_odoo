@@ -61,6 +61,6 @@ class SupportIncident(models.Model):
                 )
 
                 # Enviar correo usando plantilla
-                template = self.env.ref('soporte_expr_s_odoo.cambio_estado')
+                template = self.env.ref('Soporte_Expr-s_odoo.cambio_estado')
                 if template:
                     template.send_mail(record.id, force_send=True)
