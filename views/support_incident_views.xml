@@ -62,31 +62,23 @@
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_top">
-                                <strong><t t-esc="record.name"/></strong>
+                                <strong><t t-esc="record.name.value"/></strong>
                             </div>
                             <div class="o_kanban_badges">
-                            <!-- Badge de estado -->
-                                <span class="badge"
-                                t-attf-class="badge #{ 
-                                    record.state.raw_value == 'Ingresado' 
-                                        ? 'badge-primary' 
-                                        : (record.state.raw_value == 'En Proceso' 
-                                            ? 'badge-warning' 
-                                            : 'badge-success') 
-                                    }">
-                                    <t t-esc="record.state"/>
+                                <!-- Badge de estado -->
+                                <span t-attf-class="#{ 
+                                    record.state.raw_value == 'ingresado' ? 'badge badge-primary' :
+                                    record.state.raw_value == 'en_proceso' ? 'badge badge-warning' :
+                                    'badge badge-success' }">
+                                    <t t-esc="record.state.value"/>
                                 </span>
 
-                            <!-- Badge de prioridad -->
-                                <span class="badge"
-                                t-attf-class="badge #{ 
-                                    record.priority.raw_value == 'Baja' 
-                                        ? 'badge-secondary' 
-                                        : (record.priority.raw_value == 'Medio' 
-                                            ? 'badge-warning' 
-                                            : 'badge-danger') 
-                                }">
-                                    <t t-esc="record.priority"/>
+                                <!-- Prioridad -->
+                                <span t-attf-class="#{ 
+                                    record.priority.raw_value == 'baja' ? 'badge badge-secondary' :
+                                    record.priority.raw_value == 'medio' ? 'badge badge-warning' :
+                                    'badge badge-danger' }">
+                                    <t t-esc="record.priority.value"/>
                                 </span>
                             </div>
                         </div>

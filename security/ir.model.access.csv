@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-Soporte_Expr-s_odoo.access_support_incident,access_support_incident,Soporte_Expr-s_odoo.model_support_incident,base.group_user,1,1,1,1
+Soporte_Express_odoo.access_support_incident,access_support_incident,Soporte_Express_odoo.model_support_incident,base.group_user,1,1,1,1
