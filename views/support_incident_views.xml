@@ -19,9 +19,6 @@
                         <field name="state" widget="statusbar" statusbar_visible="Ingresado, En Proceso, Resuelto"/>
                         <field name="user_id"/>
                     </group>
-                    <group>
-                        <field name="deadline"/>
-                    </group>
                     <button string="Cambiar Estado"
                             type="object"
                             name="cambiar_estado"
@@ -66,18 +63,18 @@
                             </div>
                             <div class="o_kanban_badges">
                                 <!-- Badge de estado -->
-                                <span t-attf-class="#{ 
-                                    record.state.raw_value == 'ingresado' ? 'badge badge-primary' :
-                                    record.state.raw_value == 'en_proceso' ? 'badge badge-warning' :
-                                    'badge badge-success' }">
+                                 <span t-attf-class="badge #{ 
+                                    record.state.raw_value == 'ingresado' ? 'bg-primary text-white' :
+                                    record.state.raw_value == 'en_proceso' ? 'bg-warning text-dark' :
+                                    'bg-success text-white' }">
                                     <t t-esc="record.state.value"/>
                                 </span>
 
                                 <!-- Prioridad -->
-                                <span t-attf-class="#{ 
-                                    record.priority.raw_value == 'baja' ? 'badge badge-secondary' :
-                                    record.priority.raw_value == 'medio' ? 'badge badge-warning' :
-                                    'badge badge-danger' }">
+                                <span t-attf-class="badge #{ 
+                                    record.priority.raw_value == 'baja' ? 'bg-secondary text-white' :
+                                    record.priority.raw_value == 'medio' ? 'bg-warning text-dark' :
+                                    'bg-danger text-white' }">
                                     <t t-esc="record.priority.value"/>
                                 </span>
                             </div>
