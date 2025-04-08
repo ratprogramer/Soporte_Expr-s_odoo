@@ -4,6 +4,7 @@ from odoo import fields, models  # type:ignore
 class SupportIncident(models.Model):
     _name = "support.incident"
     _description = "Soporte de incidentes "
+    _inherit = ['mail.thread', 'mail.activity.mixin']  # <-- integración aquí
 
     name = fields.Char(required=True)
     description = fields.Text()
@@ -12,7 +13,7 @@ class SupportIncident(models.Model):
         ("soporte", "Soporte"),
         ("recursos_humanos", "Recursos Humanos")
     ], required=True, string="Categoria")
-  #  email = fields.Text(string="Email", required=True)
+    email = fields.Text(string="Email", required=True)
     priority = fields.Selection([
         ("baja", "Baja"),
         ("media", "Media"),
@@ -45,9 +46,21 @@ class SupportIncident(models.Model):
 
     def cambiar_estado(self):
         for record in self:
-            if record.state == "ingresado":
-                record.state = "proceso"
-            elif record.state == "proceso":
-                record.state = "resuelto"
-            elif record.state == "resuelto":
-                record.state = "cerrado"
+            siguiente_estado = {
+                'ingresado': 'proceso',
+                'proceso': 'resuelto',
+                'resuelto': 'cerrado',
+            }.get(record.state)
+
+            if siguiente_estado:
+                record.state = siguiente_estado
+
+                # Mensaje al chatter
+                record.message_post(
+                    body=f"📢 Estado cambiado a <b>{siguiente_estado.capitalize()}</b>"
+                )
+
+                # Enviar correo usando plantilla
+                template = self.env.ref('soporte_expr_s_odoo.cambio_estado')
+                if template:
+                    template.send_mail(record.id, force_send=True)
