@@ -1,0 +1,109 @@
+/* === FORM === */
+.custom-form .form-group-section {
+    padding: 10px 0;
+    background-color: #f9f9fb;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.custom-form .form-field {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.custom-form .form-statusbar {
+    margin-top: 10px;
+}
+
+.btn-modern {
+    background-color: #a4a4a4;
+    border: none;
+    padding: 8px 16px;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-modern:hover {
+    background-color: #2a2a2a;
+    color: rgb(255, 255, 255);
+}
+
+/* === KANBAN === */
+.custom-kanban .kanban-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.custom-kanban .kanban-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.kanban-header {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.kanban-badges .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    margin-right: 5px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Estado */
+.badge-custom-ingresado {
+    background-color: #ff9900;
+    color: rgb(255, 255, 255);
+}
+
+.badge-custom-proceso {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-custom-resuelto {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Prioridad */
+.badge-prioridad-baja {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge-prioridad-media {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.badge-prioridad-alta {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* === CHATTER === */
+.custom-chatter {
+    margin-top: 20px;
+}
+
+/* === LIST VIEW === */
+.custom-list-view th,
+.custom-list-view td {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.custom-list-view {
+    background-color: #fefefe;
+}
