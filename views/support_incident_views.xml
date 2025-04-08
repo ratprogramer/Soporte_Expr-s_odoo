@@ -1,42 +1,44 @@
 <odoo>
+    <!-- FORM -->
     <record id="support_incident_view_form" model="ir.ui.view">
         <field name="name">support.incident.form</field>
         <field name="model">support.incident</field>
         <field name="arch" type="xml">
-            <form string="Incidencias">
+            <form string="Incidencias" class="custom-form">
                 <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="description"/>
-                        <field name="deadline"/>
-                        <field name="email"/>
+                    <group class="form-group-section">
+                        <field name="name" class="form-field"/>
+                        <field name="description" class="form-field"/>
+                        <field name="deadline" class="form-field"/>
+                        <field name="email" class="form-field"/>
                     </group>
-                    <group>
-                        <field name="category"/>
-                        <field name="priority"/>
+                    <group class="form-group-section">
+                        <field name="category" class="form-field"/>
+                        <field name="priority" class="form-field"/>
                     </group>
-                    <group>
-                        <field name="state" widget="statusbar" statusbar_visible="Ingresado, En Proceso, Resuelto"/>
-                        <field name="user_id"/>
+                    <group class="form-group-section">
+                        <field name="user_id" class="form-field"/>
+                        <field name="state" widget="statusbar" class="form-statusbar" statusbar_visible="Ingresado, En Proceso, Resuelto"/>
                     </group>
                     <button string="Cambiar Estado"
                             type="object"
                             name="cambiar_estado"
-                            class="btn-primary"/>
+                            class="btn-modern"/>
                 </sheet>
-                <div class="oe_chatter">
-                <field name="message_follower_ids" widget="mail_followers"/>
-                <!-- <field name="activity_ids" widget="mail_activity"/>-->
-                <field name="message_ids" widget="mail_thread"/>
+                <div class="oe_chatter custom-chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
                 </div>
             </form>
         </field>
     </record>
+
+    <!-- LIST -->
     <record id="support_incident_view_list" model="ir.ui.view">
         <field name="name">support.incident.view.list</field>
         <field name="model">support.incident</field>
         <field name="arch" type="xml">
-            <list string="Incidencias">
+            <list string="Incidencias" class="custom-list-view">
                 <field name="name"/>
                 <field name="category"/>
                 <field name="priority"/>
@@ -46,35 +48,34 @@
             </list>
         </field>
     </record>
+
+    <!-- KANBAN -->
     <record id="support_incident_view_kanban" model="ir.ui.view">
         <field name="name">support.incident.view.kanban</field>
         <field name="model">support.incident</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban default_group_by="state" class="custom-kanban">
                 <field name="name"/>
                 <field name="priority"/>
                 <field name="state"/>
                 <field name="user_id"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
+                        <div class="oe_kanban_global_click kanban-card">
+                            <div class="kanban-header">
                                 <strong><t t-esc="record.name.value"/></strong>
                             </div>
-                            <div class="o_kanban_badges">
-                                <!-- Badge de estado -->
-                                 <span t-attf-class="badge #{ 
-                                    record.state.raw_value == 'ingresado' ? 'bg-primary text-white' :
-                                    record.state.raw_value == 'en_proceso' ? 'bg-warning text-dark' :
-                                    'bg-success text-white' }">
+                            <div class="kanban-badges">
+                                <span t-attf-class="#{ 
+                                    record.state.raw_value == 'ingresado' ? 'badge badge-custom-ingresado' :
+                                    record.state.raw_value == 'proceso' ? 'badge badge-custom-proceso' :
+                                    'badge badge-custom-resuelto' }">
                                     <t t-esc="record.state.value"/>
                                 </span>
-
-                                <!-- Prioridad -->
-                                <span t-attf-class="badge #{ 
-                                    record.priority.raw_value == 'baja' ? 'bg-secondary text-white' :
-                                    record.priority.raw_value == 'medio' ? 'bg-warning text-dark' :
-                                    'bg-danger text-white' }">
+                                <span t-attf-class="#{ 
+                                    record.priority.raw_value == 'baja' ? 'badge badge-prioridad-baja' :
+                                    record.priority.raw_value == 'medio' ? 'badge badge-prioridad-media' :
+                                    'badge badge-prioridad-alta' }">
                                     <t t-esc="record.priority.value"/>
                                 </span>
                             </div>
@@ -84,6 +85,8 @@
             </kanban>
         </field>
     </record>
+
+    <!-- MENUS -->
     <menuitem id="menu_support_incident_root" name="Incidencias" sequence="10"/>
     <menuitem id="menu_support_incident" name="Incidencias" parent="menu_support_incident_root" sequence="10"/>
     <record id="action_support_incident" model="ir.actions.act_window">
