@@ -5,7 +5,7 @@
     ],
     "data": [
         "views/support_incident_views.xml",
-        "data/mail_templates.xml"
-        # "security/ir.model.access.xml"
+        "security/ir.model.access.csv"
+        # "data/mail_templates.xml"
     ]
 }

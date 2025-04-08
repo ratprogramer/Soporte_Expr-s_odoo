@@ -12,7 +12,7 @@ class SupportIncident(models.Model):
         ("soporte", "Soporte"),
         ("recursos_humanos", "Recursos Humanos")
     ], required=True, string="Categoria")
-    email = fields.Text(string="Email", required=True)
+  #  email = fields.Text(string="Email", required=True)
     priority = fields.Selection([
         ("baja", "Baja"),
         ("media", "Media"),
@@ -28,20 +28,20 @@ class SupportIncident(models.Model):
     user_id = fields.Many2one("res.partner")
     deadline = fields.Date(required=True, string="Fecha limite")
 
-    def send_notification(self):
+    # def send_notification(self):
 
-        return self.env.ref('Soporte_Expr-s_odoo.cambio_estado').send_mail(self.id, force_send=True)
+    # return self.env.ref('Soporte_Expr-s_odoo.cambio_estado').send_mail(self.id, force_send=True)
 
-    def write(self, vals):
-        # Guardamos los estados actuales de cada registro antes de la actualización
-        old_states = {record.id: record.state for record in self}
-        # Super realiza cambios en la base de datos
-        result = super(SupportIncident, self).write(vals)
-        # Recorremos los registros y verificamos si el estado cambió
-        for record in self:
-            if 'state' in vals and old_states.get(record.id) != record.state:
-                record.send_notification()
-        return result
+# def write(self, vals):
+    # Guardamos los estados actuales de cada registro antes de la actualización
+    # old_states = {record.id: record.state for record in self}
+    # Super realiza cambios en la base de datos
+    #  result = super(SupportIncident, self).write(vals)
+    # Recorremos los registros y verificamos si el estado cambió
+# for record in self:
+    # if 'state' in vals and old_states.get(record.id) != record.state:
+    # record.send_notification()
+    # return result
 
     def cambiar_estado(self):
         for record in self:

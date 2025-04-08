@@ -4,17 +4,11 @@
       <field name="name">Notificación de Cambio de Estado</field>
       <field name="model_id" ref="model_support_incident"/>
       <field name="subject">Incidencia ${object.name} ha cambiado de estado</field>
-      <field name="email_to">${object.assigned_to.email}"</field>
-      <field name="body_html" type="html">
-        <![CDATA[
-          <html>
-            <body>
-              <p>Hola ${object.assigned_to.name},</p>
-              <p>La incidencia <strong>${object.name}</strong> ha cambiado su estado a <strong>${object.state}</strong>.</p>
-              <p><strong>Descripción:</strong> ${object.description}</p>
-            </body>
-          </html>
-        ]]>
+      <field name="email_to">${object.assigned_to.email}</field>
+      <field name="body_html" type="xml">
+        <div>
+            <strong><p align="center">ESTO ES UNA PRUEBA DEL CANAL INTRODOO</p></strong>
+        </div>
       </field>
     </record>
   </data>

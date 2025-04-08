@@ -21,13 +21,11 @@
                     <group>
                         <field name="deadline"/>
                     </group>
-                </sheet>
-                <footer>
                     <button string="Cambiar Estado"
                             type="object"
                             name="cambiar_estado"
                             class="btn-primary"/>
-                </footer>
+                </sheet>
             </form>
         </field>
     </record>
@@ -49,33 +47,40 @@
         <field name="name">support.incident.view.kanban</field>
         <field name="model">support.incident</field>
         <field name="arch" type="xml">
-            <kanban >
+            <kanban>
                 <field name="name"/>
                 <field name="priority"/>
                 <field name="state"/>
                 <field name="user_id"/>
                 <templates>
-                    <t t-name="kanban-box"> <!--Es un estilo predefinido para las tarjetas-->
-                        <div class="oe_kanban_global_click"> <!--Permite que se pueda clickear la tarjeta-->
-                            <div class="o_kanban_record_top">  
-                                <strong>
-                                    <t t-esc="record.name"/>
-                                </strong> <!--Los datos que van a salir arriba de la carpeta -->
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <strong><t t-esc="record.name"/></strong>
                             </div>
                             <div class="o_kanban_badges">
+                            <!-- Badge de estado -->
                                 <span class="badge"
-                                    t-att-class="'badgge ' +
-                                                (record.state.raw_value == 'Ingresado' and 'badge-primary' or
-                                                (record.state.raw_value == 'En Proceso' and 'badge-warning' or
-                                                'badge-success))">  
-                                    <t t-esc="record.state.value"/> <!--Toma el estilo del span, dependiendo de el estado en el que este la tarea-->
+                                t-attf-class="badge #{ 
+                                    record.state.raw_value == 'Ingresado' 
+                                        ? 'badge-primary' 
+                                        : (record.state.raw_value == 'En Proceso' 
+                                            ? 'badge-warning' 
+                                            : 'badge-success') 
+                                    }">
+                                    <t t-esc="record.state"/>
                                 </span>
+
+                            <!-- Badge de prioridad -->
                                 <span class="badge"
-                                    t-att-class="'badgge ' +
-                                                (record.priority.raw_value == 'Baja' and 'badge-secondary' or
-                                                (record.priority.raw_value == 'Medio' and 'badge-warning' or
-                                                'badge-danger))">  
-                                    <t t-esc="record.priority.value"/> <!--Toma el estilo del span, dependiendo de la prioridad-->
+                                t-attf-class="badge #{ 
+                                    record.priority.raw_value == 'Baja' 
+                                        ? 'badge-secondary' 
+                                        : (record.priority.raw_value == 'Medio' 
+                                            ? 'badge-warning' 
+                                            : 'badge-danger') 
+                                }">
+                                    <t t-esc="record.priority"/>
                                 </span>
                             </div>
                         </div>
